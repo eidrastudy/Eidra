@@ -1,40 +1,293 @@
- (function () {
-            // ==================== CONFIG ====================
-            const DATA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwX1ypFg8Ax33idGhTqxsfrv-lFhIu-dxj6ApXi7aniPCI6H7ze3m-7ADth5wW6PvNB/exec";
-            const FEEDBACK_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQTH4g_EjBnC5mpDfQw6SC7w17No4DDorfit2lZxfMaKRLzjnWVz-nixwbGO7AXF17/exec";
+(function () {
+    // ==================== CONFIG ====================
+    const DATA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwX1ypFg8Ax33idGhTqxsfrv-lFhIu-dxj6ApXi7aniPCI6H7ze3m-7ADth5wW6PvNB/exec";
+    const FEEDBACK_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQTH4g_EjBnC5mpDfQw6SC7w17No4DDorfit2lZxfMaKRLzjnWVz-nixwbGO7AXF17/exec";
 
-            // ==================== BOOKS ====================
-            const books = [
-                { title: "C Unlocked: Mastering the Language of Systems", file: "../books/c-unlock.pdf" },
-                { title: "Digital Electronics and Computer Organization", file: "../books/digital-electronic.pdf" },
-                { title: "Organizational Behavior: Understanding People at Work", file: "../books/organizational-behavior.pdf" },
-                
-            ];
+    // ==================== BOOKS ====================
+    const books = [
+        { title: "C Unlocked: Mastering the Language of Systems", file: "books/c unlocked.pdf" },
+        { title: "Digital Electronics and Computer Organization", file: "books/digital-electronic.pdf" },
+        { title: "Organizational Behavior: Understanding People at Work", file: "books/organizational-behavior.pdf" },
+    ];
 
-            // ==================== DOM ====================
-            const screen1 = document.getElementById('screen1');
-            const screen2 = document.getElementById('screen2');
-            const fullName = document.getElementById('fullName');
-            const mobile = document.getElementById('mobile');
-            const email = document.getElementById('email');
-            const degreeInput = document.getElementById('degree');
-            const semesterSelect = document.getElementById('semester');
-            const bookSearch = document.getElementById('bookSearch');
-            const suggestionsDiv = document.getElementById('suggestions');
-            const continueBtn = document.getElementById('continueBtn');
-            const goBackLink = document.getElementById('goBackLink');
-            const downloadLink = document.getElementById('downloadLink');
-            const whatsappBtn = document.getElementById('whatsappBtn');
-            const selectedNameSpan = document.getElementById('selectedName');
-            const selectedEmailSpan = document.getElementById('selectedEmail');
-            const selectedDegreeSpan = document.getElementById('selectedDegree');
-            const selectedSemesterSpan = document.getElementById('selectedSemester');
-            const selectedBookTitleSpan = document.getElementById('selectedBookTitle');
-            const feedbackModal = document.getElementById('feedbackModal');
-            const feedbackText = document.getElementById('feedbackText');
-            const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
-            const skipFeedbackBtn = document.getElementById('skipFeedbackBtn');
-            const feedbackSuccessMsg = document.getElementById('feedbackSuccessMsg');
+    // ==================== DOM ====================
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const fullName = document.getElementById('fullName');
+    const mobile = document.getElementById('mobile');
+    const email = document.getElementById('email');
+    const degreeInput = document.getElementById('degree');
+    const semesterSelect = document.getElementById('semester');
+    const bookSearch = document.getElementById('bookSearch');
+    const suggestionsDiv = document.getElementById('suggestions');
+    const continueBtn = document.getElementById('continueBtn');
+    const goBackLink = document.getElementById('goBackLink');
+    const downloadLink = document.getElementById('downloadLink');
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    const selectedNameSpan = document.getElementById('selectedName');
+    const selectedEmailSpan = document.getElementById('selectedEmail');
+    const selectedDegreeSpan = document.getElementById('selectedDegree');
+    const selectedSemesterSpan = document.getElementById('selectedSemester');
+    const selectedBookTitleSpan = document.getElementById('selectedBookTitle');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackText = document.getElementById('feedbackText');
+    const submitFeedbackBtn = document.getElementById('submitFeedbackBtn');
+    const skipFeedbackBtn = document.getElementById('skipFeedbackBtn');
+    const feedbackSuccessMsg = document.getElementById('feedbackSuccessMsg');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+
+    // ==================== STATE ====================
+    let selectedBook = null;
+    let highlightedIndex = -1;
+    let currentSuggestions = [];
+    let feedbackTimer = null;
+    let isSubmittingFeedback = false;
+    let userData = {};
+    let mobileValid = false;
+    const DOWNLOAD_LIMIT = 3;
+    const STORAGE_KEY = 'eidra_downloads';
+
+    // ==================== MOBILE VALIDATION ====================
+    function validateMobile(num) {
+        const cleaned = num.replace(/\D/g, '');
+        if (cleaned.length !== 10) return { valid: false, msg: 'Must be exactly 10 digits' };
+        if (!/^[6-9]/.test(cleaned)) return { valid: false, msg: 'Must start with 6,7,8,9' };
+        if (/^(\d)\1{9}$/.test(cleaned)) return { valid: false, msg: 'Repeated digits not allowed' };
+        return { valid: true, msg: 'Valid mobile number' };
+    }
+
+    function updateMobileValidation() {
+        const num = mobile.value.trim();
+        const result = validateMobile(num);
+        const field = mobile.closest('.input-field');
+        const feedbackEl = document.getElementById('mobile-feedback');
+
+        if (num === '') {
+            field.classList.remove('valid', 'invalid');
+            feedbackEl.textContent = '';
+            mobileValid = false;
+        } else if (result.valid) {
+            field.classList.add('valid');
+            field.classList.remove('invalid');
+            feedbackEl.textContent = '✓ Valid number';
+            mobileValid = true;
+        } else {
+            field.classList.add('invalid');
+            field.classList.remove('valid');
+            feedbackEl.textContent = result.msg;
+            mobileValid = false;
+        }
+
+        validateForm();
+    }
+
+    mobile.addEventListener('input', updateMobileValidation);
+
+    // ==================== DOWNLOAD LIMIT ====================
+    function checkDownloadLimit(mobileNum) {
+        const records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000;
+
+        for (let num in records) {
+            records[num] = records[num].filter(ts => now - ts < oneHour);
+        }
+
+        const num = mobileNum.replace(/\D/g, '');
+
+        if (!records[num]) records[num] = [];
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+
+        return records[num].length < DOWNLOAD_LIMIT;
+    }
+
+    function recordDownload(mobileNum) {
+        const records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const num = mobileNum.replace(/\D/g, '');
+
+        if (!records[num]) records[num] = [];
+
+        records[num].push(Date.now());
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    }
+
+    // ==================== SEARCH ====================
+    function getFilteredBooks(query) {
+        if (!query.trim()) return [];
+
+        const lowerQuery = query.toLowerCase();
+
+        return books.filter(book =>
+            book.title.toLowerCase().includes(lowerQuery)
+        );
+    }
+
+    function renderSuggestions() {
+        const query = bookSearch.value;
+        const matches = getFilteredBooks(query);
+
+        currentSuggestions = matches;
+
+        suggestionsDiv.innerHTML = '';
+
+        matches.forEach((book, idx) => {
+
+            const item = document.createElement('div');
+
+            item.classList.add('suggestion-item');
+
+            item.textContent = book.title;
+
+            item.addEventListener('click', () => selectBook(book));
+
+            suggestionsDiv.appendChild(item);
+        });
+
+        suggestionsDiv.classList.toggle('show', matches.length > 0);
+    }
+
+    function selectBook(book) {
+
+        bookSearch.value = book.title;
+
+        selectedBook = { title: book.title, file: book.file };
+
+        suggestionsDiv.classList.remove('show');
+
+        validateForm();
+    }
+
+    bookSearch.addEventListener('input', () => {
+
+        selectedBook = null;
+
+        renderSuggestions();
+
+        validateForm();
+    });
+
+    // ==================== FORM VALIDATION ====================
+    function validateForm() {
+
+        const nameVal = fullName.value.trim();
+
+        const mobileVal = mobile.value.trim();
+
+        const emailVal = email.value.trim();
+
+        const degreeVal = degreeInput.value;
+
+        const semesterVal = semesterSelect.value;
+
+        const emailValid = emailVal.includes('@');
+
+        const allValid =
+            nameVal !== '' &&
+            mobileValid &&
+            emailValid &&
+            degreeVal !== '' &&
+            semesterVal !== '' &&
+            selectedBook !== null;
+
+        continueBtn.disabled = !allValid;
+
+        if (selectedBook) {
+            step1.classList.add('active');
+        } else {
+            step1.classList.remove('active');
+        }
+    }
+
+    // ==================== GOOGLE SHEETS ====================
+    function submitToGoogleSheets(data) {
+
+        const formData = new FormData();
+
+        formData.append("name", data.name);
+
+        formData.append("email", data.email);
+
+        formData.append("mobile", data.mobile);
+
+        formData.append("degree", data.degree);
+
+        formData.append("semester", data.semester);
+
+        formData.append("book", data.book);
+
+        fetch(DATA_SCRIPT_URL, {
+
+            method: "POST",
+
+            body: formData
+
+        }).catch(err => console.error(err));
+    }
+
+    // ==================== SCREEN NAVIGATION ====================
+    function showScreen2() {
+
+        const mobileNum = mobile.value.trim();
+
+        if (!checkDownloadLimit(mobileNum)) {
+
+            alert("Download limit reached. Try again later.");
+
+            return;
+        }
+
+        selectedNameSpan.textContent = fullName.value.trim();
+        selectedEmailSpan.textContent = email.value.trim();
+        selectedDegreeSpan.textContent = degreeInput.value;
+        selectedSemesterSpan.textContent = semesterSelect.value;
+        selectedBookTitleSpan.textContent = selectedBook.title;
+
+        // ✅ REAL DOWNLOAD LINK
+        downloadLink.href = selectedBook.file;
+        downloadLink.download = selectedBook.file.split('/').pop();
+
+        userData = {
+            name: fullName.value.trim(),
+            email: email.value.trim(),
+            mobile: mobileNum,
+            degree: degreeInput.value,
+            semester: semesterSelect.value,
+            book: selectedBook.title
+        };
+
+        submitToGoogleSheets(userData);
+
+        recordDownload(mobileNum);
+
+        screen1.classList.add('hidden');
+
+        screen2.classList.remove('hidden');
+
+        step3.classList.add('active');
+
+        if (feedbackTimer) clearTimeout(feedbackTimer);
+
+        feedbackTimer = setTimeout(() => {
+
+            feedbackModal.classList.add('show');
+
+        }, 3000);
+    }
+
+    continueBtn.addEventListener('click', function (e) {
+
+        e.preventDefault();
+
+        if (continueBtn.disabled) return;
+
+        showScreen2();
+    });
+
+})();            const feedbackSuccessMsg = document.getElementById('feedbackSuccessMsg');
             const mobileFeedback = document.getElementById('mobile-feedback');
             const step1 = document.getElementById('step1');
             const step2 = document.getElementById('step2');
@@ -420,4 +673,5 @@
             }
 
         })();
+
 
