@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eidra · About · minimalist academic books</title>
+  <!-- Inter font – same as homepage and download page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/about.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Navbar (identical to homepage) -->
+    <nav class="navbar">
+      <div class="logo"><a href="/">Eidra</a></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="bookstore.html">Books</a>
+        <a href="#" class="active">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <!-- Mobile navigation overlay (same behavior) -->
+    <div class="mobile-nav" id="mobileNav">
+      <span class="close-btn" id="closeNav">&times;</span>
+      <a href="index.html">Home</a>
+      <a href="bookstore.html">Books</a>
+      <a href="#" class="active">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Main content: About page -->
+    <main>
+      <!-- Hero / title section -->
+      <section style="text-align: center; margin: 2rem 0 3rem;">
+        <h1>About Eidra</h1>
+        <p class="lead" style="max-width: 700px;">
+          A minimal academic book platform designed for the modern student. Centered on simplicity, accessibility, and focus.
+        </p>
+      </section>
+
+      <!-- Problem & Solution side by side (grid-2) -->
+      <section class="section">
+        <div class="grid-2">
+          <div class="card-simple">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">The Problem</h2>
+            <p style="color: #4f658a; font-size: 1.1rem; line-height: 1.6;">
+              Finding academic resources shouldn't be a struggle. Students often face cluttered interfaces, expensive textbooks, and fragmented information that distracts from actual learning. Traditional platforms prioritize ads and upsells over the reading experience.
+            </p>
+          </div>
+          <div class="card-simple">
+            <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">The Solution</h2>
+            <p style="color: #4f658a; font-size: 1.1rem; line-height: 1.6;">
+              Eidra provides a distraction-free environment dedicated to scholarship. We curate high-quality academic texts and present them in a clean, readable format. By stripping away the noise, we help students focus on what truly matters: deep comprehension and research.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Who it is for -->
+      <section class="section">
+        <h2 style="text-align: center;">Who it is for</h2>
+        <div class="grid-4" style="margin-top: 2rem;">
+          <div class="principle-card" style="text-align: center;">
+            <div class="principle-icon">🎓</div>
+            <h3>Undergraduates</h3>
+            <p style="color: #4f658a;">Core textbooks for degree programs.</p>
+          </div>
+          <div class="principle-card" style="text-align: center;">
+            <div class="principle-icon">📚</div>
+            <h3>Self-learners</h3>
+            <p style="color: #4f658a;">Build a foundational knowledge base.</p>
+          </div>
+          <div class="principle-card" style="text-align: center;">
+            <div class="principle-icon">🔬</div>
+            <h3>Postgraduates</h3>
+            <p style="color: #4f658a;">Niche journals and research materials.</p>
+          </div>
+          <div class="principle-card" style="text-align: center;">
+            <div class="principle-icon">👩‍🏫</div>
+            <h3>Educators</h3>
+            <p style="color: #4f658a;">Curate reading lists for classes.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Platform Principles (three cards) -->
+      <section class="section">
+        <h2 style="text-align: center;">Platform Principles</h2>
+        <div class="grid-3" style="margin-top: 2rem;">
+          <div class="principle-card">
+            <div class="principle-icon">✨</div>
+            <h3>Simple</h3>
+            <p style="color: #4f658a;">Everything you need, nothing you don't. A user experience that stays out of your way.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">🌍</div>
+            <h3>Accessible</h3>
+            <p style="color: #4f658a;">Knowledge should be available to everyone, everywhere, on any device.</p>
+          </div>
+          <div class="principle-card">
+            <div class="principle-icon">🎯</div>
+            <h3>Focused</h3>
+            <p style="color: #4f658a;">Tools designed to help you concentrate and absorb complex academic material.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Join our community (card) -->
+      <section class="community-card">
+        <h2 style="margin-bottom: 1rem;">Join our community</h2>
+        <p style="color: #4d6383; max-width: 500px; margin: 0 auto 2rem;">
+          Connect with other students, share study tips, and get early access to new academic resources.
+        </p>
+        <a href="https://chat.whatsapp.com/CxPum6wBo4D9Oc8NYsUHsd" class="btn btn-whatsapp" id="communityJoinBtn">Join WhatsApp</a>
+      </section>
+
+      <!-- Ready to start learning? CTA -->
+      <section class="cta-card">
+        <h2 style="margin-bottom: 0.5rem;">Ready to start learning?</h2>
+        <p style="color: #4f658a; margin-bottom: 1.5rem;">Explore our library of free academic books.</p>
+        <a href="bookstore.html" class="btn btn-primary">Browse Books</a>
+        <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+      </section>
+    </main>
+
+    <!-- Footer (same as homepage) -->
+    <footer class="footer">
+      <div class="footer-logo">Eidra</div>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="privacypolicy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div>© 2026 Eidra Academic. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <!-- JavaScript for hamburger menu and demo interactions -->
+  <script src="js/about.js">
+   
+  </script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eidra · Find your study book</title>
+    <!-- Inter font – modern SaaS style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/bookstore.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo"><a href="index.html">Eidra</a></div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="books.html" class="active">Books</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Mobile nav -->
+        <div class="mobile-nav" id="mobileNav">
+            <span class="close-btn" id="closeNav">&times;</span>
+            <a href="index.html">Home</a>
+            <a href="books.html">Books</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Find Your Study Book</h1>
+            <p>Search and download academic books for B.Tech and BCA students instantly.</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1">
+                <span class="step-number">1</span>
+                <span>Find Book</span>
+            </div>
+            <div class="step" id="step2">
+                <span class="step-number">2</span>
+                <span>Enter Details</span>
+            </div>
+            <div class="step" id="step3">
+                <span class="step-number">3</span>
+                <span>Download</span>
+            </div>
+        </div>
+
+        <!-- Main Card -->
+        <div class="card">
+            <div class="screen-stack">
+                <!-- SCREEN 1 – form + search -->
+                <div id="screen1" class="screen">
+                    <!-- Search -->
+                    <div class="search-section">
+                        <label class="search-label" for="bookSearch">Search for your book</label>
+                        <div class="search-wrapper">
+                            <input type="text" id="bookSearch" placeholder="e.g. C Programming, Data Structures, OS" autocomplete="off">
+                            <div id="suggestions" class="suggestions"></div>
+                        </div>
+                        <div class="popular-searches">
+                            <span>Popular:</span>
+                            <span>C Programming</span>
+                            <span>Data Structures</span>
+                            <span>Operating Systems</span>
+                        </div>
+                    </div>
+
+                    <!-- Student details form -->
+                    <div class="form-grid">
+                        <div class="input-field">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" placeholder="Alex Johnson" autocomplete="off">
+                        </div>
+                        <div class="input-field" id="mobile-field">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="tel" id="mobile" placeholder="+91 98765 43210" autocomplete="off">
+                            <div id="mobile-feedback" class="validation-feedback"></div>
+                        </div>
+                        <div class="input-field">
+                            <label for="email">Email ID</label>
+                            <input type="email" id="email" placeholder="Yourname@example.com" autocomplete="off">
+                        </div>
+                        <div class="input-field">
+                            <label for="degree">Degree</label>
+                            <select id="degree">
+                                <option value="" disabled selected>Select Degree</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="BCA">BCA</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="semester">Semester</label>
+                            <select id="semester">
+                                <option value="" disabled selected>Select Semester</option>
+                                <option value="Semester 1">Semester 1</option>
+                                <option value="Semester 2">Semester 2</option>
+                                <option value="Semester 3">Semester 3</option>
+                                <option value="Semester 4">Semester 4</option>
+                                <option value="Semester 5">Semester 5</option>
+                                <option value="Semester 6">Semester 6</option>
+                                <option value="Semester 7">Semester 7</option>
+                                <option value="Semester 8">Semester 8</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Trust badges -->
+                    <div class="trust-badges">
+                        <span>✔ Free academic resources</span>
+                        <span>✔ No signup required</span>
+                        <span>✔ Instant download</span>
+                    </div>
+
+                    <!-- Continue button -->
+                    <button class="btn-primary" id="continueBtn" disabled>Continue</button>
+                </div>
+
+                <!-- SCREEN 2 – download summary -->
+                <div id="screen2" class="screen hidden">
+                    <div style="text-align: center;">
+                        <div class="success-icon">📘</div>
+                        <div class="screen2-title">Your book is ready.</div>
+                        <div class="screen2-sub">Download now or join the community.</div>
+
+                        <!-- Summary card -->
+                        <div class="summary-card">
+                            <div class="summary-item">
+                                <span class="summary-label">Name</span>
+                                <span class="summary-value" id="selectedName">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Email</span>
+                                <span class="summary-value" id="selectedEmail">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Degree</span>
+                                <span class="summary-value" id="selectedDegree">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Semester</span>
+                                <span class="summary-value" id="selectedSemester">—</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">Book</span>
+                                <span class="summary-value" id="selectedBookTitle">—</span>
+                            </div>
+                        </div>
+
+                        <!-- Download button -->
+                        <a id="downloadLink" class="download-link" download="book.pdf">⬇️ Download Book</a>
+
+                        <!-- Community section -->
+                        <div class="community-section">
+                            <div class="community-title">Join the Eidra Study Community</div>
+                            <div class="community-desc">Get new notes, books and exam materials.</div>
+                            <a id="whatsappBtn" class="whatsapp-btn" href="https://chat.whatsapp.com/CxPum6wBo4D9Oc8NYsUHsd" target="_blank" rel="noopener noreferrer">
+                                <span>📱</span> Join WhatsApp Community
+                            </a>
+                        </div>
+
+                        <!-- Back link -->
+                        <div class="back-text">
+                            <a id="goBackLink">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="share-section">
+            <h3 style="margin-bottom: 0.5rem;">Help other students discover Eidra</h3>
+            <p style="color: #4f658a;">Share this platform with your friends and classmates.</p>
+            <div class="share-buttons">
+                <a href="#" class="btn-secondary" id="shareWhatsAppBtn">Share on WhatsApp</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-logo">Eidra</div>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="privacypolicy.html">Privacy Policy</a>
+                <a href="terms.html">Terms</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div>© 2026 Eidra</div>
+        </footer>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal-overlay">
+        <div class="modal-card">
+            <h3 class="modal-title">Help Us Improve Eidra</h3>
+            <p style="color: #5a6e8a; margin-bottom: 1rem;">Your feedback helps us serve you better.</p>
+            <div class="modal-field">
+                <textarea id="feedbackText" placeholder="Share your feedback..."></textarea>
+            </div>
+            <div class="modal-actions">
+                <button id="skipFeedbackBtn" class="modal-btn modal-btn-secondary">Skip</button>
+                <button id="submitFeedbackBtn" class="modal-btn modal-btn-primary">Submit Feedback</button>
+            </div>
+            <div id="feedbackSuccessMsg" style="display: none; color: #0f7b3a; margin-top: 0.5rem;">Thank you for your feedback!</div>
+        </div>
+    </div>
+
+    <script src="js/bookstore.js">
+       
+    </script>
+</body>
+</html>

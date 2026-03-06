@@ -1,0 +1,397 @@
+ /* ----- RESET & GLOBAL (consistent with Eidra design system) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f6f8fb;
+      color: #1a1e2b;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    /* ----- NAVBAR ----- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid #e9eef5;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .logo a {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    /* Desktop navigation */
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #3a4b66;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    /* Hamburger icon - hidden on desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: #2c3e5c;
+      margin: 3px 0;
+      transition: 0.2s;
+      border-radius: 2px;
+    }
+
+    /* Mobile navigation overlay */
+    .mobile-nav {
+      display: flex;              /* changed from none to flex, but hidden by opacity/visibility */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s;
+    }
+
+    .mobile-nav.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #0f182a;
+      transition: color 0.2s;
+    }
+
+    .mobile-nav a:hover {
+      color: #2563eb;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 2.5rem;
+      cursor: pointer;
+      color: #4f658a;
+    }
+
+    /* ----- TYPOGRAPHY & SPACING ----- */
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: #0f182a;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #1e2b44;
+    }
+
+    .section-subhead {
+      font-size: 1.1rem;
+      color: #576e8a;
+      max-width: 700px;
+      margin: 0 auto 2.5rem auto;
+    }
+
+    /* ----- BUTTONS ----- */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3a40da, #b05cff);
+      color: white;
+      box-shadow: 0 8px 18px -6px rgba(90, 75, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 24px -8px #4f46e5;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #2c3e5c;
+      border: 1.5px solid #e2e8f0;
+      box-shadow: 0 4px 8px -4px rgba(0,0,0,0.05);
+    }
+
+    .btn-secondary:hover {
+      background: #f8fafd;
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(145deg, #25D366, #128C7E);
+      color: white;
+      box-shadow: 0 8px 18px -6px #25D366;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 24px -8px #128C7E;
+    }
+
+    /* ----- HERO ----- */
+    .hero {
+      text-align: center;
+      padding: 2rem 0 3.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* ----- FEATURE CARDS ----- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 15px 30px -15px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 25px 35px -18px rgba(0,0,0,0.15);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      color: #4f658a;
+    }
+
+    /* ----- HOW IT WORKS ----- */
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .step {
+      flex: 1 1 250px;
+      background: white;
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 15px 30px -15px rgba(0,0,0,0.1);
+      border: 1px solid #f0f4fe;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+
+    .step:hover {
+      transform: translateY(-4px);
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #e0e7ff, #f0f2ff);
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 1.8rem;
+      border-radius: 30px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ----- COMMUNITY CARD ----- */
+    .community-card {
+      background: white;
+      border-radius: 28px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 25px 40px -20px rgba(0,0,0,0.2);
+      margin: 4rem 0;
+      border: 1px solid #ffffff;
+    }
+
+    .community-card h2 {
+      margin-bottom: 0.8rem;
+    }
+
+    .community-card p {
+      color: #4d6383;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ----- CTA SECTION ----- */
+    .cta {
+      background: white;
+      border-radius: 28px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 4rem 0 2rem;
+      box-shadow: 0 20px 35px -18px rgba(0,0,0,0.15);
+    }
+
+    .cta h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .cta .btn {
+      margin: 0.5rem;        /* space between buttons */
+    }
+
+    /* ----- FOOTER ----- */
+    .footer {
+      border-top: 1px solid #e9eef5;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      color: #61799e;
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #4d6383;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+    }
+
+    .footer-logo {
+      font-weight: 600;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ----- RESPONSIVE (mobile) ----- */
+    @media (max-width: 700px) {
+      h1 { font-size: 2.2rem; }
+      
+      /* Hide desktop nav, show hamburger */
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 1rem; }
+    }

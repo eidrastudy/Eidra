@@ -1,0 +1,284 @@
+/* ----- RESET & GLOBAL (consistent with Eidra platform) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f6f8fb;
+      color: #1a1e2b;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    /* ----- NAVBAR (identical to all pages) ----- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid #e9eef5;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .logo a {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #3a4b66;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    .nav-links a.active {
+      color: #2563eb;
+      border-bottom: 2px solid #2563eb;
+      padding-bottom: 0.25rem;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 2px;
+      background: #2c3e5c;
+      margin: 3px 0;
+      transition: 0.2s;
+      border-radius: 2px;
+    }
+
+    .mobile-nav {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.98);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s;
+    }
+
+    .mobile-nav.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav a {
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #0f182a;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      font-size: 2.5rem;
+      cursor: pointer;
+      color: #4f658a;
+    }
+
+    /* ----- PAGE HEADER (same as privacy/terms) ----- */
+    .page-header {
+      text-align: center;
+      margin: 2rem 0 3rem;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      color: #576e8a;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* content card – consistent design */
+    .content-card {
+      background: white;
+      border-radius: 28px;
+      padding: 3rem;
+      box-shadow: 0 25px 40px -20px rgba(0,0,0,0.15);
+      margin: 2rem 0 3rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+      margin: 2rem 0;
+    }
+
+    .contact-item {
+      text-align: center;
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: #1e2b44;
+    }
+
+    .contact-item p {
+      color: #4f658a;
+      margin-bottom: 1rem;
+    }
+
+    .contact-email {
+      background: #edf2fa;
+      border-radius: 60px;
+      padding: 0.75rem 1.5rem;
+      display: inline-block;
+      font-weight: 500;
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .contact-email:hover {
+      background: #e0e7ff;
+    }
+
+    /* WhatsApp button (same green as homepage) */
+    .btn-whatsapp {
+      display: inline-block;
+      background: linear-gradient(145deg, #25D366, #128C7E);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 8px 18px -6px #25D366;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 24px -8px #128C7E;
+    }
+
+    .community-section {
+      background: #f0f5fe;
+      border-radius: 24px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+
+    .feedback-note {
+      border-top: 1px solid #e2e8f0;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      text-align: center;
+      color: #4f658a;
+    }
+
+    /* ----- FOOTER (same as all pages) ----- */
+    .footer {
+      border-top: 1px solid #e9eef5;
+      padding: 2.5rem 0;
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      color: #61799e;
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #4d6383;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #2563eb;
+    }
+
+    .footer-logo {
+      font-weight: 600;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ----- RESPONSIVE ----- */
+    @media (max-width: 700px) {
+      h1 { font-size: 2.2rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .content-card { padding: 2rem; }
+      .footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 1rem; }
+      .content-card { padding: 1.5rem; }
+    }
