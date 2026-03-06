@@ -5,7 +5,7 @@
 
             // ==================== BOOKS ====================
             const books = [
-                { title: "C Unlocked: Mastering the Language of Systems", file: "books/c-unlocked.pdf" },
+                { title: "C Unlocked: Mastering the Language of Systems", file: "books/c-unlock.pdf" },
                 { title: "Digital Electronics and Computer Organization", file: "digital-electronic.pdf" },
                 { title: "Organizational Behavior: Understanding People at Work", file: "books/organizational-behavior.pdf" },
                 
@@ -418,4 +418,5 @@
                     window.open(`https://wa.me/?text=${text}`, '_blank');
                 });
             }
+
         })();
