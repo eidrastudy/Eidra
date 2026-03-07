@@ -8,7 +8,9 @@
 { title: "C Unlocked: Mastering the Language of Systems", file: "/books/c-unlocked.pdf" },
 { title: "Digital Electronics and Computer Organization", file: "/books/digital-electronic.pdf" },
 { title: "Organizational Behavior: Understanding People at Work", file: "/books/organizational-behavior.pdf" },
-];
+{ title: "Mathematics-II", file: "/books/Mathematics-II.pdf" },
+{ title: "Financial-Accounting-&-Management", file: "/books/Financial-Accounting-&-Management.pdf" },        
+    ];
 
     // ==================== DOM ====================
     const screen1 = document.getElementById('screen1');
@@ -422,6 +424,7 @@ document.body.removeChild(a);
         });
     }
 })();
+
 
 
 
