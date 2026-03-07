@@ -302,9 +302,20 @@
         selectedBookTitleSpan.textContent = selectedBook.title;
 
         // *** FIXED: Use real file path instead of dummy blob ***
-        downloadLink.href = selectedBook.file;
-downloadLink.download = selectedBook.file.split('/').pop();
-downloadLink.target = "_blank";
+        // prepare download
+const fileUrl = selectedBook.file;
+
+// create hidden download link
+const a = document.createElement("a");
+a.href = fileUrl;
+a.download = fileUrl.split('/').pop();
+document.body.appendChild(a);
+
+// trigger download
+setTimeout(() => {
+    a.click();
+    document.body.removeChild(a);
+}, 500);
 
         userData = {
             name: fullName.value.trim(),
@@ -416,6 +427,7 @@ downloadLink.target = "_blank";
         });
     }
 })();
+
 
 
 
