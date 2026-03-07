@@ -5,10 +5,10 @@
 
     // ==================== BOOKS ====================
     const books = [
-        { title: "C Unlocked: Mastering the Language of Systems", file: "books/c-unlocked.pdf" },
-        { title: "Digital Electronics and Computer Organization", file: "books/digital-electronic.pdf" },
-        { title: "Organizational Behavior: Understanding People at Work", file: "books/organizational-behavior.pdf" },
-    ];
+{ title: "C Unlocked: Mastering the Language of Systems", file: "/books/c-unlocked.pdf" },
+{ title: "Digital Electronics and Computer Organization", file: "/books/digital-electronic.pdf" },
+{ title: "Organizational Behavior: Understanding People at Work", file: "/books/organizational-behavior.pdf" },
+];
 
     // ==================== DOM ====================
     const screen1 = document.getElementById('screen1');
@@ -302,20 +302,15 @@
         selectedBookTitleSpan.textContent = selectedBook.title;
 
         // *** FIXED: Use real file path instead of dummy blob ***
-        // prepare download
-const fileUrl = selectedBook.file;
+       const fileUrl = selectedBook.file;
 
-// create hidden download link
 const a = document.createElement("a");
 a.href = fileUrl;
-a.download = fileUrl.split('/').pop();
+a.download = "";
 document.body.appendChild(a);
 
-// trigger download
-setTimeout(() => {
-    a.click();
-    document.body.removeChild(a);
-}, 500);
+a.click();
+document.body.removeChild(a);
 
         userData = {
             name: fullName.value.trim(),
@@ -427,6 +422,7 @@ setTimeout(() => {
         });
     }
 })();
+
 
 
 
