@@ -5,7 +5,7 @@
 
     // ==================== BOOKS ====================
     const books = [
-        { title: "C Unlocked: Mastering the Language of Systems", file: "books/c unlocked.pdf" },
+        { title: "C Unlocked: Mastering the Language of Systems", file: "books/c-unlocked.pdf" },
         { title: "Digital Electronics and Computer Organization", file: "books/digital-electronic.pdf" },
         { title: "Organizational Behavior: Understanding People at Work", file: "books/organizational-behavior.pdf" },
     ];
@@ -415,4 +415,5 @@
         });
     }
 })();
+
 
