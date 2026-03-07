@@ -302,7 +302,7 @@
         selectedBookTitleSpan.textContent = selectedBook.title;
 
         // *** FIXED: Use real file path instead of dummy blob ***
-        downloadLink.href = selectedBook.file;
+        downloadLink.href = "./" + selectedBook.file;
         downloadLink.download = selectedBook.file.split('/').pop();
 
         userData = {
@@ -415,3 +415,4 @@
         });
     }
 })();
+
